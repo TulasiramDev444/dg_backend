@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         res.json(contacts);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).json({ message: 'Server Error' });
     }
 });
 
@@ -47,10 +47,10 @@ router.post(
         try {
             contact = new Contact({ name, email, subject, message });
             await contact.save();
-            res.status(200).send({ message: "Your details will be reviewed as soon as possible, Thank You." });
+            res.status(200).json({ message: "Your details will be reviewed as soon as possible, Thank You." });
         } catch (err) {
             console.error(err.message);
-            res.status(500).send('Server Error');
+            res.status(500).json({ message: 'Server Error' });
         }
     }
 );

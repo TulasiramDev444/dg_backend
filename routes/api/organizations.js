@@ -2,37 +2,37 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
-const Contact = require('../../models/Contact');
+const Organization = require('../../models/Organization');
 
-// @route    GET api/contact
-// @desc     Get all contacts
+// @route    GET api/organization
+// @desc     Get all organization
 // @access   Public
 router.get('/', async (req, res) => {
     try {
-        const contacts = await Contact.find().sort({ date: -1 });
-        res.json(contacts);
+        const organizations = await Organization.find().sort({ date: -1 });
+        res.json(organizations);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
 
-// @route    Post api/contact
-// @desc     Add contact
+// @route    Post api/organization
+// @desc     Add organization details
 // @access   Public
 router.post(
     '/',
     [
-        check('name', 'Name is required')
+        check('type', 'Type of Organization is required')
             .not()
             .isEmpty(),
         check('email', 'Email is required')
             .not()
             .isEmpty(),
-        check('subject', 'Subject is required')
+        check('service', 'Service is required')
             .not()
             .isEmpty(),
-        check('message', 'Message is required')
+        check('about_organization', 'About organization is required')
             .not()
             .isEmpty(),
     ],
@@ -42,11 +42,11 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { name, email, subject, message } = req.body;
+        const { type, email, service, about_organization } = req.body;
 
         try {
-            contact = new Contact({ name, email, subject, message });
-            await contact.save();
+            organization = new Organization({ type, email, service, about_organization });
+            await organization.save();
             res.status(200).send("Your details will be reviewed as soon as possible, Thank You.");
         } catch (err) {
             console.error(err.message);

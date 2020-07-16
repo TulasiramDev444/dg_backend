@@ -10,7 +10,7 @@ const Organization = require('../../models/Organization');
 router.get('/', async (req, res) => {
     try {
         const organizations = await Organization.find().sort({ date: -1 });
-        res.json(organizations);
+        res.json({ data: organizations });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: 'Server Error' });

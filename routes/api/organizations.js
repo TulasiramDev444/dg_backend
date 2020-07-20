@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const Organization = require('../../models/Organization');
+const auth = require('../../middleware/auth');
 
 // @route    GET api/organization
 // @desc     Get all organization

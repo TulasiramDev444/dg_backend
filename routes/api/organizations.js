@@ -8,7 +8,7 @@ const auth = require('../../middleware/auth');
 // @route    GET api/organization
 // @desc     Get all organization
 // @access   Public
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const organizations = await Organization.find().sort({ date: -1 });
         res.json({ data: organizations });

@@ -72,8 +72,8 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { username, password } = req.body;
-
+        const { username, password, typeoflogin } = req.body;
+        
         try {
             let user = await User.findOne({ username });
 
@@ -101,7 +101,7 @@ router.post(
                 { expiresIn: 3600 },
                 (err, token) => {
                     if (err) throw err;
-                    res.json({ token });
+                    res.json({ token, typeoflogin });
                 }
             );
         } catch (err) {

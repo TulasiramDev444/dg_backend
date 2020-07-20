@@ -8,7 +8,7 @@ const Contact = require('../../models/Contact');
 // @route    GET api/contact
 // @desc     Get all contacts
 // @access   Public
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const contacts = await Contact.find().sort({ date: -1 });
         res.json({ data: contacts });
